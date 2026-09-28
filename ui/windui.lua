@@ -15361,13 +15361,18 @@ end
 
 local d
 if aw.User then
-local function GetUserThumb()local
-f=ak:GetUserThumbnailAsync(
+local function GetUserThumb()
+local ok,f=pcall(function()
+return ak:GetUserThumbnailAsync(
 aw.User.Anonymous and 1 or ak.LocalPlayer.UserId,
 Enum.ThumbnailType.HeadShot,
 Enum.ThumbnailSize.Size420x420
 )
+end)
+if ok and type(f)=="string"then
 return f
+end
+return""
 end
 
 d=ao("TextButton",{
